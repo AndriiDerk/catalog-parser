@@ -29,6 +29,8 @@ class jsonService {
 
   async download(data) {
     try {
+      await this.deleteAllFiles(path.join(__dirname, `../src/`));
+
       for (let key of data) {
         try {
           let localLink = await this.downloadPDF(key.link);
@@ -41,6 +43,19 @@ class jsonService {
       return data;
     } catch (e) {
       console.log("outputData error: ", e);
+    }
+  }
+
+  async deleteAllFiles(directory) {
+    try {
+      const files = fs.readdirSync(directory);
+      files.forEach((file) => {
+        const filePath = path.join(directory, file);
+        fs.unlinkSync(filePath);
+        console.log(`${file} deleted`);
+      });
+    } catch (err) {
+      console.error("Error deleting files:", err);
     }
   }
 }

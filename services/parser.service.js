@@ -36,14 +36,16 @@ class parserService {
           );
           let name = "",
             link = "#",
+            date = "",
             data = [];
 
           for (let key of container) {
             try {
               name = key.querySelector("h3").innerText;
               link = key.querySelector('[class="link-icon solid pdf"]').href;
+              date = key.querySelector("p").innerText;
 
-              data.push({ name, link });
+              data.push({ name, link, date });
             } catch (e) {
               console.log(
                 'parserCatalog - [class="card card-catalogue"] - get data error: ',
